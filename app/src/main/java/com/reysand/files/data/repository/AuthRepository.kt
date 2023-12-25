@@ -13,18 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.reysand.files
+package com.reysand.files.data.repository
 
-import android.app.Application
-import com.reysand.files.data.AppContainer
-import com.reysand.files.data.DefaultAppContainer
+import com.reysand.files.data.model.AuthModel
+import kotlinx.coroutines.flow.Flow
 
-class FilesApplication : Application() {
+/**
+ * Interface defining operations for interacting with authentication.
+ */
+interface AuthRepository {
 
-    lateinit var container: AppContainer
+    /**
+     * Saves the user credentials.
+     *
+     * @param email The email of the user.
+     */
+    suspend fun saveAuth(email: String)
 
-    override fun onCreate() {
-        super.onCreate()
-        container = DefaultAppContainer(this)
-    }
+    suspend fun removeAuth()
+
+    fun getAuth(): Flow<AuthModel?>
 }

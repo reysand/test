@@ -77,6 +77,14 @@ dependencies {
     implementation(libs.material3)
     implementation(libs.lifecycle.viewmodel.compose)
     implementation(libs.navigation.compose)
+    implementation(libs.datastore.preferences)
+
+    // microsoft-authentication-library-for-android issue #1864
+    implementation(libs.msal) {
+        exclude(group = "io.opentelemetry")
+    }
+    implementation(libs.opentelemetry.api)
+    implementation(libs.opentelemetry.context)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
