@@ -34,7 +34,7 @@ jobs:
         env:
           SUPER_SECRET: ${{ secrets.AUTH_CONFIG_SINGLE_ACCOUNT_JSON }}
         run: |
-          echo "$SUPER_SECRET" >> ./app/src/main/res/raw/auth_config_single_account.json
+          echo "$SUPER_SECRET" > ./app/src/main/res/raw/auth_config_single_account.json
           cat ./app/src/main/res/raw/auth_config_single_account.json
       
       - name: Build with Gradle
