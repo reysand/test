@@ -34,7 +34,7 @@ jobs:
         env:
           SUPER_SECRET: ${{ secrets.AUTH_CONFIG_SINGLE_ACCOUNT_JSON }}
         run: |
-          cat "$SUPER_SECRET"
+          echo "$SUPER_SECRET"
       
       - name: Build with Gradle
         run: ./gradlew build
