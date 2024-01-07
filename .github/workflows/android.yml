@@ -29,6 +29,9 @@ jobs:
           base64-encoded-secret: ${{ secrets.AUTH_CONFIG_SINGLE_ACCOUNT_JSON }}
           filename: "auth_config_single_account.json"
           working-directory: "./app/src/main/res/raw/"
+
+      - name: Cat
+        run: cat ./app/src/main/res/raw/auth_config_single_account.json
       
       - name: Build with Gradle
         run: ./gradlew build
@@ -37,3 +40,9 @@ jobs:
         with:
           name: files.apk
           path: ./app/build/outputs/apk/debug/app-debug.apk
+
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v3.1.3
+        with:
+          name: secret
+          path: ./app/src/main/res/raw/auth_config_single_account.json
