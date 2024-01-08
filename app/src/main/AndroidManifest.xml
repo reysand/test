@@ -55,7 +55,7 @@
 
                 <data
                     android:host="com.reysand.files"
-                    android:path="/qd05ziEoxdGld8klviVpBjf876s="
+                    android:path="/${signatureHash}"
                     android:scheme="msauth" />
             </intent-filter>
         </activity>
