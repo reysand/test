@@ -106,3 +106,7 @@ dependencies {
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
 }
+
+task printVersionName {
+    println "v" + android.defaultConfig.versionName + "(" + android.defaultConfig.versionCode + ")"
+}
