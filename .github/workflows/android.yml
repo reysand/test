@@ -66,5 +66,11 @@ jobs:
           name: files.apk
           path: ./app/build/outputs/apk/release/app-release.apk
 
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v3.1.3
+        with:
+          name: files.apk
+          path: ./app/build/outputs/apk/release/app-release-unsigned.apk
+
       - name: Cat
         run: ls -R ./app/build/outputs/apk
