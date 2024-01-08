@@ -32,10 +32,17 @@ jobs:
 
       - shell: bash
         env:
-          SUPER_SECRET: ${{ secrets.AUTH_CONFIG_SINGLE_ACCOUNT_JSON }}
+          MSAL_SECRET: ${{ secrets.AUTH_CONFIG_SINGLE_ACCOUNT_JSON }}
         run: |
-          echo "$SUPER_SECRET" > ./app/src/main/res/raw/auth_config_single_account.json
+          echo "$MSAL_SECRET" > ./app/src/main/res/raw/auth_config_single_account.json
           cat ./app/src/main/res/raw/auth_config_single_account.json
+
+      - shell: bash
+        env:
+          SECRETS: ${{ secrets.SECRETS_PROPERTIES }}
+        run: |
+          echo "$SECRETS" > ./secrets.properties
+          cat ./secrets.properties
 
       - name: Generate keystore.properties
         run: |
