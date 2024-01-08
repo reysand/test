@@ -13,10 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import java.util.Properties
+import java.io.FileInputStream
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
 }
+
+val secretsPropertiesFile = rootProject.file("secrets.properties")
+val secretsProperties = Properties()
+secretsProperties.load(FileInputStream(secretsPropertiesFile))
 
 android {
     namespace = "com.reysand.files"
@@ -36,7 +43,11 @@ android {
     }
 
     buildTypes {
+        debug {
+            manifestPlaceholders["signatureHash"] = secretsProperties["DEBUG_SIGNATURE_HASH"] as String
+        }
         release {
+            manifestPlaceholders["signatureHash"] = secretsProperties["RELEASE_SIGNATURE_HASH"] as String
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
