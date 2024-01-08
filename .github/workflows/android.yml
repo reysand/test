@@ -65,3 +65,6 @@ jobs:
         with:
           name: files.apk
           path: ./app/build/outputs/apk/release/app-release.apk
+
+      - name: Cat
+        run: ls -R ./app/build/outputs/apk
