@@ -60,20 +60,8 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew assembleRelease
 
-      - name: Generate file name env var
-        run: |
-          VERSION_NAME=$(${{github.workspace}}/gradlew -q printVersionName)
-          MESSAGE=$(cat << EOF
-          files-release-${VERSION_NAME}
-          EOF)
-          echo OUTPUT_NAME=$MESSAGE >> $GITHUB_ENV
-
-      - name: Rename APK 
-        run:
-          mv "./app/build/outputs/apk/release/app-release.apk" "./app/build/outputs/apk/release/${{ env.OUTPUT_NAME }}.apk"
-        
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v3.1.3
         with:
           name: files.apk
-          path: ./app/build/outputs/apk/release/${{ env.OUTPUT_NAME }}.apk
+          path: ./app/build/outputs/apk/release/app-release.apk.apk
