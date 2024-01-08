@@ -36,17 +36,37 @@ jobs:
         run: |
           echo "$SUPER_SECRET" > ./app/src/main/res/raw/auth_config_single_account.json
           cat ./app/src/main/res/raw/auth_config_single_account.json
+
+      - name: Generate keystore.properties
+        run: |
+          cat <<EOF > keystore.properties
+          storeFile:${{ vars.KEYSTORE_STORE_FILE_PATH }}
+          storePassword:${{ secrets.KEYSTORE_STORE_PASSWORD }}
+          keyAlias:${{ secrets.KEYSTORE_KEY_ALIAS }}
+          keyPassword:${{ secrets.KEYSTORE_KEY_PASSWORD }}
+          EOF
+
+      - name: Decode keystore and create jks
+        run: |
+          echo "${{ secrets.KEYSTORE_JKS_BASE64 }}" | base64 --decode > keystore.jks
       
       - name: Build with Gradle
-        run: ./gradlew build
+        run: ./gradlew assembleRelease
+
+      - name: Generate file name env var
+        run: |
+          VERSION_NAME=$(${{github.workspace}}/gradlew -q printVersionName)
+          MESSAGE=$(cat << EOF
+          files-release-${VERSION_NAME}
+          EOF)
+          echo OUTPUT_NAME=$MESSAGE >> $GITHUB_ENV
+
+      - name: Rename APK 
+        run:
+          mv "./app/build/outputs/apk/release/app-release.apk" "./app/build/outputs/apk/release/${{ env.OUTPUT_NAME }}.apk"
+        
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v3.1.3
         with:
           name: files.apk
-          path: ./app/build/outputs/apk/debug/app-debug.apk
-
-      - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v3.1.3
-        with:
-          name: secret
-          path: ./app/src/main/res/raw/auth_config_single_account.json
+          path: ./app/build/outputs/apk/release/${{ env.OUTPUT_NAME }}.apk
