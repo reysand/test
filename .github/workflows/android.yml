@@ -52,6 +52,8 @@ jobs:
           keyAlias:${{ secrets.KEYSTORE_KEY_ALIAS }}
           keyPassword:${{ secrets.KEYSTORE_KEY_PASSWORD }}
           EOF
+          ls
+          pwd
 
       - name: Decode keystore and create jks
         run: |
