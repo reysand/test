@@ -29,6 +29,10 @@ jobs:
           base64-encoded-secret: ${{ secrets.AUTH_CONFIG_SINGLE_ACCOUNT_JSON }}
           filename: "auth_config_single_account.json"
           working-directory: "./app/src/main/res/raw/"
+
+      - name: Test
+        run: |
+          echo "TEST"
       
       - name: Build with Gradle
         run: ./gradlew build
