@@ -28,7 +28,7 @@ jobs:
           MSAL_SECRET: ${{ secrets.AUTH_CONFIG_SINGLE_ACCOUNT_JSON }}
         run: |
           mkdir ./app/src/main/res/raw
-          echo "$MSAL_SECRET" > ./app/src/main/res/raw/auth_config_single_account.json
+          echo "${{ secrets.AUTH_CONFIG_SINGLE_ACCOUNT_JSON }}" > ./app/src/main/res/raw/auth_config_single_account.json
           cat ./app/src/main/res/raw/auth_config_single_account.json
 
       - shell: bash
